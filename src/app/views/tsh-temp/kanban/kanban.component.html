@@ -1,0 +1,56 @@
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-header">
+      <h4>Kanban</h4>
+    </div>
+    <div class="card-body" >
+      <div class="row">
+        <!--/.location, gaugeValue, datenow-->
+
+
+          <div class="col-sm-6 col-md-4 d-flex align-items-stretch justify-content-center"  *ngFor="let data of kanbanData" >
+            <div class="card border-primary text-center">
+              <div class="card-body">
+                <div class="h2 py-3">{{data.locationName}}</div>
+                <ngx-gauge
+                          [size]="gaugeSize"
+                          [thick]="gaugeThick"
+                          [type]="gaugeType"
+                          [value]="data.temperature"
+                          [label]="gaugeLabel"
+                          [append]="gaugeAppendText"
+                          [cap]="gaugeCap"
+                          [thresholds]="thresholdConfig"
+                          [animate]="false">
+                </ngx-gauge>  &nbsp;
+                <ngx-gauge
+                          [size]="gaugeSize"
+                          [thick]="gaugeThick"
+                          [type]="gaugeType"
+                          [value]="data.humidity"
+                          [label]="gaugeLabelH"
+                          [append]="gaugeAppendTextH"
+                          [cap]="gaugeCap"
+                          [thresholds]="thresholdConfigH"
+                          [animate]="false">
+                </ngx-gauge>
+
+                <blockquote class="card-bodyquote">
+
+                  <footer>Data At
+                    <cite title="waktu">{{data.lastUpdate | date: "HH:mm:ss" }}</cite>
+                  </footer>
+                </blockquote>
+              </div>
+            </div>
+          </div><!--/.col-->
+
+
+
+
+      </div>
+    </div>
+    <div class="card-footer">
+    </div>
+  </div>
+</div>

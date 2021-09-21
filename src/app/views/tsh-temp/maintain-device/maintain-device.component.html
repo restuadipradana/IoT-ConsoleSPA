@@ -1,0 +1,169 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-12  col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="form-group col-sm-11">
+              <h4>1.1 Device Maintain</h4>
+            </div>
+            <div class="form-group col-sm-1">
+              <button mat-flat-button color="primary" (click)="openMo({}, 'add')">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+
+        </div>
+        <div class="card-body">
+          <div class="mat-elevation-z8" style="width: 100%;">
+            <table mat-table [dataSource]="dataSource" matSort>
+
+              <!-- Position Column -->
+              <ng-container matColumnDef="deviceId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header ><b>Device ID</b>  </th>
+                <td mat-cell *matCellDef="let element"> {{element.deviceId}} </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="deviceSpec">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header ><b>Device Sepcification</b> </th>
+                <td mat-cell *matCellDef="let element"> {{element.deviceSpec}} </td>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="remark">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header ><b>Remark</b> </th>
+                <td mat-cell *matCellDef="let element"> {{element.remark}} </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="isActive">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header ><b>Is Active</b>  </th>
+                <td mat-cell *matCellDef="let element">
+                  <div *ngIf="element.isActive == true; then thenBlock else elseBlock"></div>
+                    <ng-template #thenBlock>
+                      <button mat-icon-button color="primary" aria-label="-">
+                        <mat-icon>done</mat-icon>
+                      </button>
+                    </ng-template>
+                    <ng-template #elseBlock>
+                      <button mat-icon-button color="warn" aria-label="-">
+                        <mat-icon>clear</mat-icon>
+                      </button>
+                    </ng-template>
+                </td>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header ><b>Action</b> </th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button style="color:green;" (click)="openMo(element, 'edit')"><mat-icon>edit</mat-icon></button>
+                  <div *ngIf="element.isActive !== true"><button mat-icon-button color="warn" (click)="openMo(element, 'del')"><mat-icon>delete</mat-icon></button></div>
+
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data </td>
+              </tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[10, 25, 50]"
+                            showFirstLastButtons
+                            aria-label="Select page of device list">
+            </mat-paginator>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #addModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Device</h4>
+        <button type="button" class="close" (click)="addModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <mat-form-field appearance="legacy" style="width: 100%;">
+          <mat-label>Device Id</mat-label>
+          <input matInput #dvcId maxlength="10" [ngModel]="deviceDataS?.deviceId" (ngModelChange)="deviceDataS.deviceId = $event" required>
+          <mat-hint align="end">{{dvcId.value.length}} / 10</mat-hint>
+        </mat-form-field><br>
+        <mat-form-field appearance="legacy" style="width: 100%;">
+          <mat-label>Device Specification</mat-label>
+          <input matInput [ngModel]="deviceDataS?.deviceSpec" (ngModelChange)="deviceDataS.deviceSpec = $event" >
+        </mat-form-field>
+        <mat-form-field appearance="legacy" style="width: 100%;">
+          <mat-label>Remark</mat-label>
+          <input matInput [ngModel]="deviceDataS?.remark" (ngModelChange)="deviceDataS.remark = $event">
+        </mat-form-field>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="addModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveChange(1)">Add Device</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit {{deviceDataS?.deviceId}}</h4>
+        <button type="button" class="close" (click)="editModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Device Id</mat-label>
+          <input matInput disabled value={{deviceDataS?.deviceId}}>
+        </mat-form-field><br>
+        <mat-form-field appearance="legacy" style="width: 100%;">
+          <mat-label>Device Specification</mat-label>
+          <input matInput [ngModel]="deviceDataS?.deviceSpec" (ngModelChange)="deviceDataS.deviceSpec = $event">
+        </mat-form-field>
+        <mat-form-field appearance="legacy" style="width: 100%;">
+          <mat-label>Remark</mat-label>
+          <input matInput [ngModel]="deviceDataS?.remark" (ngModelChange)="deviceDataS.remark = $event">
+        </mat-form-field>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="editModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveChange(2)">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Warning..!</h4>
+        <button type="button" class="close" (click)="deleteModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Delete {{deviceDataS?.deviceId}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="deleteModal.hide()">Close</button>
+        <button type="button" class="btn btn-danger" (click)="saveChange(3)">Delete</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
