@@ -81,10 +81,14 @@ export class MaintainLocationComponent implements OnInit, AfterViewInit {
 
   //1 add 2 edit 3 delete
   saveChange(kind: number) {
-    if (this.locationDataS == undefined || this.locationDataS == null || Object.keys(this.locationDataS).length == 0  )
+    if (this.locationDataS.locationId == undefined ||
+        this.locationDataS.locationId == '' ||
+        this.locationDataS.locationName == undefined ||
+        this.locationDataS.locationName == '' ||
+        Object.keys(this.locationDataS).length == 0  )
     {
       console.log('nulll')
-      this.toastr.info('Please fill the field!', 'Oops..!')
+      this.toastr.info('Please fill the required field!', 'Oops..!')
     }
     else
     {

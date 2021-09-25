@@ -6,21 +6,21 @@ export const navItems: INavData[] = [
     url: '/temperature',
     icon: 'icon-speedometer',
     children: [
-      {
-        name: '1.1 Device',
-        url: '/temperature/maintain-device',
-        class: "menu-margin"
-      },
-      {
-        name: '1.2 Location',
-        url: '/temperature/maintain-location',
-        class: "menu-margin"
-      },
-      {
-        name: '1.3 Device Location',
-        url: '/temperature/maintain-dl',
-        class: "menu-margin"
-      },
+      // {
+      //   name: '1.1 Device',
+      //   url: '/temperature/maintain-device',
+      //   class: "menu-margin"
+      // },
+      // {
+      //   name: '1.2 Location',
+      //   url: '/temperature/maintain-location',
+      //   class: "menu-margin"
+      // },
+      // {
+      //   name: '1.3 Device Location',
+      //   url: '/temperature/maintain-dl',
+      //   class: "menu-margin"
+      // },
     ]
   },
   {
@@ -40,16 +40,16 @@ export const navItems: INavData[] = [
     url: '/temperature',
     icon: 'icon-speedometer',
     children: [
-      {
-        name: '5.1 Overview',
-        url: '/temperature/overview',
-        class: "menu-margin"
-      },
-      {
-        name: '5.2 Query',
-        url: '/temperature/query',
-        class: "menu-margin"
-      },
+      //{
+      //   name: '5.1 Overview',
+      //   url: '/temperature/overview',
+      //   class: "menu-margin"
+      // },
+      // {
+      //   name: '5.2 Query',
+      //   url: '/temperature/query',
+      //   class: "menu-margin"
+      // },
     ]
   },
   /*

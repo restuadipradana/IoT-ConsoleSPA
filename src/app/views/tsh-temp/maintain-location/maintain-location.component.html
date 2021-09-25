@@ -108,7 +108,7 @@
         </mat-form-field><br>
         <mat-form-field appearance="legacy" style="width: 100%;">
           <mat-label>Location Name</mat-label>
-          <input matInput [ngModel]="locationDataS?.locationName" (ngModelChange)="locationDataS.locationName = $event" >
+          <input matInput [ngModel]="locationDataS?.locationName" (ngModelChange)="locationDataS.locationName = $event" required>
         </mat-form-field>
         <mat-form-field appearance="legacy" style="width: 100%;">
           <mat-label>Remark</mat-label>
@@ -138,12 +138,12 @@
       </div>
       <div class="modal-body">
         <mat-form-field appearance="fill" style="width: 100%;">
-          <mat-label>Device Id</mat-label>
+          <mat-label>Location Id</mat-label>
           <input matInput disabled value={{locationDataS?.locationId}}>
         </mat-form-field><br>
         <mat-form-field appearance="legacy" style="width: 100%;">
-          <mat-label>Device Specification</mat-label>
-          <input matInput [ngModel]="locationDataS?.locationName" (ngModelChange)="locationDataS.locationName = $event">
+          <mat-label>Location Name</mat-label>
+          <input matInput [ngModel]="locationDataS?.locationName" (ngModelChange)="locationDataS.locationName = $event" required>
         </mat-form-field>
         <mat-form-field appearance="legacy" style="width: 100%;">
           <mat-label>Remark</mat-label>

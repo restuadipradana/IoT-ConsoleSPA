@@ -84,7 +84,9 @@ export class MaintainDeviceComponent implements OnInit, AfterViewInit {
 
   //1 add 2 edit 3 delete
   saveChange(kind: number) {
-    if (this.deviceDataS == undefined || this.deviceDataS == null || Object.keys(this.deviceDataS).length == 0  )
+    if (this.deviceDataS.deviceId == undefined ||
+        this.deviceDataS.deviceId == '' ||
+        Object.keys(this.deviceDataS).length == 0  )
     {
       console.log('nulll')
       this.toastr.info('Please fill the field!', 'Oops..!')

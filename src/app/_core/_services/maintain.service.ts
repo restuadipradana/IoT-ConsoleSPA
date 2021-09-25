@@ -57,5 +57,8 @@ export class MaintainService {
   deleteLocation(location: Location){
     return this.http.post(this.baseUrl + 'setting/delete-location', location);
   }
+  deleteDeviceLocation(devicelocation: DeviceLocation){
+    return this.http.post(this.baseUrl + 'setting/delete-devicelocation', devicelocation);
+  }
 
 }
