@@ -4,7 +4,7 @@ export const navItems: INavData[] = [
   {
     name: '1. Maintain',
     url: '/temperature',
-    icon: 'icon-speedometer',
+    icon: 'icon-note',
     children: [
       // {
       //   name: '1.1 Device',
@@ -38,18 +38,18 @@ export const navItems: INavData[] = [
   {
     name: '5. Query',
     url: '/temperature',
-    icon: 'icon-speedometer',
+    icon: 'icon-graph',
     children: [
-      //{
+      // {
       //   name: '5.1 Overview',
       //   url: '/temperature/overview',
       //   class: "menu-margin"
       // },
-      // {
-      //   name: '5.2 Query',
-      //   url: '/temperature/query',
-      //   class: "menu-margin"
-      // },
+      {
+        name: '5.1 Query',
+        url: '/temperature/query',
+        class: "menu-margin"
+      },
     ]
   },
   /*

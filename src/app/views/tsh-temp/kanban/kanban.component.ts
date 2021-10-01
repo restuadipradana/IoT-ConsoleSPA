@@ -53,8 +53,8 @@ export class KanbanComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     const updateValues = (): void => {
       //this.getTodayData()
-      console.log('st', this.kanbanData)
-      console.log('updt')
+      //console.log('st', this.kanbanData)
+      //console.log('updt')
       this.getTodayKanbanData()
     };
     const INTERVAL: number = 10000;
@@ -63,7 +63,7 @@ export class KanbanComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    console.log('destroy')
+    //console.log('destroy')
     clearInterval(this.interval);
   }
 
@@ -74,11 +74,11 @@ export class KanbanComponent implements OnInit, OnDestroy, AfterViewInit {
     this._tempSvc.getTodayTemperatureKanban().subscribe(
       (res: any) => {
         this.kanbanData = [] // CARA INI SANGAT EFEKTIF UNTUK MENGOSONGKAN OBJECT
-        console.log('st2', this.kanbanData)
-        console.log('res ', res)
+        //console.log('st2', this.kanbanData)
+        //console.log('res ', res)
         if (res.length > 0 ) {
           Object.assign(this.kanbanData, res)
-          console.log('nd', this.kanbanData)
+          //console.log('nd', this.kanbanData)
         }
         else {
           this.kanbanData = []

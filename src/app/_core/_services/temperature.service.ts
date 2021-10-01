@@ -1,3 +1,4 @@
+import { NewTemperatureData } from './../_models/new-temperature-data';
 import { Injectable } from '@angular/core';
 import { DateRange } from '../_models/date-range';
 import { TemperatureData } from '../_models/temperature-data';
@@ -25,9 +26,28 @@ export class TemperatureService {
     return this.http.get<any>(this.baseUrl + 'sensor/get-today-temp');
   }
 
+  // =============================
+
+  //kanban
   getTodayTemperatureKanban(){
     return this.http.get<any>(this.baseUrl + 'kanban/get-kanban');
   }
+
+  //query data
+  searchData(dateRange: DateRange, locationId: string) {
+    const url = this.baseUrl + 'query/search';
+
+    return this.http
+      .post<NewTemperatureData>(url, { rangeParam: dateRange, locationParam: locationId }, {});
+
+  }
+
+  esportExcel(dateRange: DateRange, locationId: string) {
+    return this.http.post(this.baseUrl + 'query/report',{rangeParam: dateRange, locationParam: locationId},{responseType: 'blob' })
+  }
+
+
+  // =============================
 
   getTodayTemperaturePromise(){
     return this.http.get<any>(this.baseUrl + 'sensor/get-today-temp').toPromise();

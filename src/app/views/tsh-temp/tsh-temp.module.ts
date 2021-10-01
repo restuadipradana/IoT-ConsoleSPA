@@ -16,6 +16,10 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import {MatCardModule} from '@angular/material/card';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatExpansionModule} from '@angular/material/expansion';
 import { NgxGaugeModule } from 'ngx-gauge';
 
 
@@ -57,6 +61,10 @@ import { MaintainDeviceLocationComponent } from './maintain-device-location/main
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatCardModule,
+    MatProgressBarModule,
+    MatDividerModule,
+    MatExpansionModule,
     NgxGaugeModule
 
   ]

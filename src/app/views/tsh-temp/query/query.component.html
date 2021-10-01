@@ -1,1 +1,168 @@
-<p>Coming Soon Feature!</p>
+<div class="animated fadeIn">
+  <!--
+  <mat-card>
+    <mat-card-title>5.1.1 Query Data</mat-card-title>
+    <mat-divider inset></mat-divider>
+    <br>
+    <mat-card-content>
+
+    </mat-card-content>
+    <mat-card-footer>
+      <mat-progress-bar *ngIf="isLoad == true" mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+  <mat-card>
+    <br>
+    <mat-card-content>
+
+    </mat-card-content>
+  </mat-card>
+  <br>
+  <mat-card>
+    <mat-card-title>5.1.2. Daily Trend</mat-card-title>
+    <mat-divider inset></mat-divider>
+    <br>
+    <mat-card-content>
+
+    </mat-card-content>
+  </mat-card> -->
+
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h4>5.1.1 Query Data</h4>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="row">
+        <div class="form-group col-sm-5">
+          <mat-form-field appearance="fill" style="width: 100%;"  >
+            <mat-label>Device</mat-label>
+            <mat-select [ngModel]="location?.locationId" (ngModelChange)="location.locationId= $event" required>
+              <mat-option *ngFor="let data of locations" [value]="data.locationId">{{data.locationId}} - {{data.locationName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-sm-5">
+          <mat-form-field appearance="fill"  style="width: 100%;">
+            <mat-label>Sensor Date Range</mat-label>
+            <mat-date-range-input [rangePicker]="picker" required>
+              <input matStartDate placeholder="Start date" [(ngModel)]="dateRange.startDate">
+              <input matEndDate placeholder="End date" [(ngModel)]="dateRange.endDate">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-sm-1">
+          <div class="example-button-container" style="display: flex; justify-content:center; width: 100%; margin: 8px;">
+            <button mat-flat-button color="primary" (click)="search()">
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="form-group col-sm-1">
+          <div class="example-button-container" style="display: flex; justify-content:center; width: 100%; margin: 8px;">
+            <button mat-flat-button color="primary" (click)="exportExcel()">
+              <mat-icon>file_download</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="mat-elevation-z8" style="width: 100%;">
+        <table mat-table [dataSource]="dataSource" matSort >
+
+          <!-- Location name Column -->
+          <ng-container matColumnDef="locationName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+            <td mat-cell *matCellDef="let row"> {{row.locationName }} </td>
+          </ng-container>
+
+          <!-- tempratur Column -->
+          <ng-container matColumnDef="temperature">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Temperature </th>
+            <td mat-cell *matCellDef="let row"> {{row.temperature}}°C  </td>
+          </ng-container>
+
+          <!-- humidity Column -->
+          <ng-container matColumnDef="humidity">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Humidity </th>
+            <td mat-cell *matCellDef="let row"> {{row.humidity}}%</td>
+          </ng-container>
+
+          <!-- date Column -->
+          <ng-container matColumnDef="insertAt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Detect Time </th>
+            <td mat-cell *matCellDef="let row"> {{row.insertAt | date: "yyyy/MM/dd HH:mm"  }} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="3">No data </td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[ 10, 25, 50, 100]"
+             showFirstLastButtons
+             aria-label="Select page of periodic elements">
+         </mat-paginator>
+
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h4>5.1.2 Daily Trend</h4>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="row">
+        <div class="form-group col-sm-5">
+          <mat-form-field appearance="fill" style="width: 100%;"  >
+            <mat-label>Device</mat-label>
+            <mat-select [ngModel]="locationTrend?.locationId" (ngModelChange)="locationTrend.locationId= $event" required>
+              <mat-option *ngFor="let data of locations" [value]="data.locationId">{{data.locationId}} - {{data.locationName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-sm-5">
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="spicker" [(ngModel)]="sdate">
+            <mat-datepicker-toggle matSuffix [for]="spicker"></mat-datepicker-toggle>
+            <mat-datepicker #spicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-sm-1">
+          <div class="example-button-container" style="display: flex; justify-content:center; width: 100%; margin: 8px;">
+            <button mat-flat-button color="primary" (click)="getGraphTrend()">
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-sm-5">
+          <h4 class="card-title mb-0"> {{locname}}</h4>
+          <div class="small text-muted">{{dnow | date: "yyyy/MM/dd"}}</div>
+        </div><!--/.col-->
+
+      </div><!--/.row-->
+      <div class="chart-wrapper" style="height:300px;margin-top:40px;">
+        <canvas baseChart class="chart"
+        [datasets]="mainChartData"
+        [labels]="mainChartLabels"
+        [options]="mainChartOptions"
+        [colors]="mainChartColours"
+        [legend]="mainChartLegend"
+        [chartType]="mainChartType"></canvas>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</div>

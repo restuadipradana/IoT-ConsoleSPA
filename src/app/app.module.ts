@@ -87,18 +87,18 @@ import { NgxSpinnerModule } from "ngx-spinner";
       provide: LocationStrategy,
       useClass: HashLocationStrategy
     },
-    IconSetService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: resourceProviderFactory,
-      deps: [TemperatureService],
-      multi: true
-      },
+    // IconSetService,
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: resourceProviderFactory,
+    //   deps: [TemperatureService],
+    //   multi: true
+    // },
   ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
 
-export function resourceProviderFactory(provider: TemperatureService) {
-  return () => provider.loadTodayData();
-  }
+// export function resourceProviderFactory(provider: TemperatureService) {
+//   return () => provider.loadTodayData();
+//   }
