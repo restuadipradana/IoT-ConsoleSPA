@@ -37,7 +37,7 @@
       <div class="row">
         <div class="form-group col-sm-5">
           <mat-form-field appearance="fill" style="width: 100%;"  >
-            <mat-label>Device</mat-label>
+            <mat-label>Location</mat-label>
             <mat-select [ngModel]="location?.locationId" (ngModelChange)="location.locationId= $event" required>
               <mat-option *ngFor="let data of locations" [value]="data.locationId">{{data.locationId}} - {{data.locationName}}</mat-option>
             </mat-select>
@@ -123,7 +123,7 @@
       <div class="row">
         <div class="form-group col-sm-5">
           <mat-form-field appearance="fill" style="width: 100%;"  >
-            <mat-label>Device</mat-label>
+            <mat-label>Location</mat-label>
             <mat-select [ngModel]="locationTrend?.locationId" (ngModelChange)="locationTrend.locationId= $event" required>
               <mat-option *ngFor="let data of locations" [value]="data.locationId">{{data.locationId}} - {{data.locationName}}</mat-option>
             </mat-select>

@@ -9,9 +9,9 @@
 
 
           <div class="col-sm-6 col-md-4 d-flex align-items-stretch justify-content-center"  *ngFor="let data of kanbanData" >
-            <div class="card border-primary text-center">
-              <div class="card-body">
-                <div class="h2 py-3">{{data.locationName}}</div>
+            <div class="card border-primary text-center" style="color: #F0F0F0;">
+              <div class="card-body" style="background-color: #413D3C;">
+                <div class="h2 py-3" >{{data.locationName}}</div>
                 <ngx-gauge
                           [size]="gaugeSize"
                           [thick]="gaugeThick"
@@ -21,7 +21,8 @@
                           [append]="gaugeAppendText"
                           [cap]="gaugeCap"
                           [thresholds]="thresholdConfig"
-                          [animate]="false">
+                          [animate]="false"
+                          [backgroundColor]="'#F0F0F0'">
                 </ngx-gauge>  &nbsp;
                 <ngx-gauge
                           [size]="gaugeSize"
@@ -32,7 +33,8 @@
                           [append]="gaugeAppendTextH"
                           [cap]="gaugeCap"
                           [thresholds]="thresholdConfigH"
-                          [animate]="false">
+                          [animate]="false"
+                          [backgroundColor]="'#F0F0F0'">
                 </ngx-gauge>
 
                 <blockquote class="card-bodyquote">
