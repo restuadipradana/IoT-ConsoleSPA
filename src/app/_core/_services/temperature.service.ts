@@ -47,7 +47,11 @@ export class TemperatureService {
   }
 
 
-  // =============================
+
+
+
+
+  // ======================deprecated============================
 
   getTodayTemperaturePromise(){
     return this.http.get<any>(this.baseUrl + 'sensor/get-today-temp').toPromise();

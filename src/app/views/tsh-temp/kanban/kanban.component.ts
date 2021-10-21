@@ -96,7 +96,7 @@ export class KanbanComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
 
-
+  //deprecated
   getTodayData() {
     this._tempSvc.getTodayTemperature().subscribe(
       (res: any) => {
