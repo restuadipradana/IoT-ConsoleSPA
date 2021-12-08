@@ -59,7 +59,7 @@ export class QueryComponent implements OnInit, AfterViewInit {
         },
         ticks: {
           callback: function(value: any) {
-            return value.charAt(3);
+            return value.substr(0,5);
           }
         }
       }],
