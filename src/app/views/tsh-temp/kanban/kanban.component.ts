@@ -23,7 +23,7 @@ export class KanbanComponent implements OnInit, OnDestroy, AfterViewInit {
   gaugeAppendText = "°C";
   thresholdConfig = {
       '0': {color: 'DodgerBlue'},
-      '25': {color: 'green'},
+      '20': {color: 'green'},
       '30': {color: 'orange'},
       '37': {color: 'tomato'},
   };
@@ -35,7 +35,7 @@ export class KanbanComponent implements OnInit, OnDestroy, AfterViewInit {
   thresholdConfigH = {
       '0': {color: 'orange'},
       '25': {color: 'green'},
-      '80': {color: 'orange'},
+      '70': {color: 'orange'},
   };
 /****GAUGE-PROP****/
 

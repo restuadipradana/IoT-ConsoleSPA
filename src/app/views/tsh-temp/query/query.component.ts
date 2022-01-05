@@ -35,7 +35,7 @@ export class QueryComponent implements OnInit, AfterViewInit {
     },
   ];
   /* tslint:disable:max-line-length */
-  public mainChartLabels: Array<any> = ['Monday'];
+  public mainChartLabels: Array<any> = ['Time'];
   /* tslint:enable:max-line-length */
   public mainChartOptions: any = {
     tooltips: {
