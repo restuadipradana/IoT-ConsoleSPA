@@ -22,10 +22,9 @@ export class KanbanComponent implements OnInit, OnDestroy, AfterViewInit {
   gaugeLabel = "Temperature";
   gaugeAppendText = "°C";
   thresholdConfig = {
-      '0': {color: 'DodgerBlue'},
+      '0': {color: 'orange'},
       '20': {color: 'green'},
-      '30': {color: 'orange'},
-      '37': {color: 'tomato'},
+      '31': {color: 'orange'},
   };
 
   //Humidity Gauge
