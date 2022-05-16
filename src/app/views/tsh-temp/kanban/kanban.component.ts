@@ -1,8 +1,11 @@
 import { KanbanTemperatureData } from './../../../_core/_models/kanban-temperature-data';
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, TemplateRef  } from '@angular/core';
+
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 import { TemperatureData } from '../../../_core/_models/temperature-data';
 import { TemperatureService } from '../../../_core/_services/temperature.service';
+import { WarningWindowComponent } from '../warning-window/warning-window.component';
 
 @Component({
   selector: 'app-kanban',
@@ -10,6 +13,12 @@ import { TemperatureService } from '../../../_core/_services/temperature.service
   styleUrls: ['./kanban.component.scss']
 })
 export class KanbanComponent implements OnInit, OnDestroy, AfterViewInit {
+
+  activeModal: boolean[] = [];
+  modalRef: BsModalRef[] = [];
+  config = {
+    keyboard: false
+  };
 
 /****GAUGE PROP****/
   gaugeCap = "round"
@@ -47,22 +56,23 @@ export class KanbanComponent implements OnInit, OnDestroy, AfterViewInit {
   temprData: TemperatureData[]
   kanbanData: KanbanTemperatureData[] = []
 
-  constructor(private _tempSvc: TemperatureService) { }
+  shouldDanger: boolean
+
+  constructor(private _tempSvc: TemperatureService, private modalService: BsModalService  ) { }
 
   ngOnInit(): void {
+    //this.getTodayKanbanData()
+
     const updateValues = (): void => {
-      //this.getTodayData()
-      //console.log('st', this.kanbanData)
-      //console.log('updt')
       this.getTodayKanbanData()
+      console.log('mod', this.activeModal)
     };
-    const INTERVAL: number = 10000;
+    const INTERVAL: number = 5000;
     this.interval = setInterval(updateValues, INTERVAL);
     updateValues();
   }
 
   ngOnDestroy(): void {
-    //console.log('destroy')
     clearInterval(this.interval);
   }
 
@@ -73,22 +83,72 @@ export class KanbanComponent implements OnInit, OnDestroy, AfterViewInit {
     this._tempSvc.getTodayTemperatureKanban().subscribe(
       (res: any) => {
         this.kanbanData = [] // CARA INI SANGAT EFEKTIF UNTUK MENGOSONGKAN OBJECT
-        //console.log('st2', this.kanbanData)
-        //console.log('res ', res)
         if (res.length > 0 ) {
           Object.assign(this.kanbanData, res)
-          //console.log('nd', this.kanbanData)
+          this.kanbanData.forEach((e, idx) => {
+            e.isDanger = this.isDanger(e.temperature, e.minTemperature, e.maxTemperature, e.humidity, e.minHumidity, e.maxHumidity)
+          })
+          this.showWarning();
         }
         else {
           this.kanbanData = []
         }
-
       },
       (error) => {
-        console.log("err: ", error.error)
+        console.log("err: ", error)
       }
     )
   }
+
+  showWarning() {
+    this.kanbanData.forEach((e) => {
+      if(e.isDanger && ((new Date).getTime() - new Date(e.lastAcknowledgeDate).getTime()) > 3600000 ) {
+        //console.log('diatas sejam!, show alert' , e.locationName)
+        this.openWarningWdw(e.temperatureDataId, e.locationId)
+      }
+    })
+  }
+
+  isDanger(tval, tmin, tmax, hval, hmin, hmax: number): boolean {
+    if (tval < tmin || tval > tmax || hval < hmin || hval > hmax ) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  openWarningWdw(id_data: any, warning_id: string) {
+    const initialState = {
+      id_data: id_data,
+      warning_id: warning_id
+    };
+    if(!this.activeModal[warning_id]) { //kalo masih aktif jangan dimunculin lagi
+      this.modalRef[warning_id] = this.modalService.show(WarningWindowComponent, {class: 'modal-danger modal-xl', initialState, keyboard: false, ignoreBackdropClick: true, animated: false});
+      this.modalRef[warning_id].content.onClose.subscribe(result => {
+        console.log('results', result); //tangkap event saat user close warning
+        this.closeWarningWdw(result)
+      })
+      this.activeModal[warning_id] = true
+    }
+
+  }
+
+  closeWarningWdw(warning_id: string) {
+    this.modalRef[warning_id].hide()
+    this.activeModal[warning_id] = false
+
+  }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

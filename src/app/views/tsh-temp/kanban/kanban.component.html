@@ -10,7 +10,7 @@
 
           <div class="col-sm-6 col-md-4 d-flex align-items-stretch justify-content-center"  *ngFor="let data of kanbanData" >
             <div class="card border-primary text-center" style="color: #F0F0F0;">
-              <div class="card-body" style="background-color: #413D3C;">
+              <div class="card-body" [ngClass]="{'normal-bg': !data?.isDanger, 'danger-bg': data?.isDanger}" >
                 <div class="h2 py-3" >{{data.locationName}}</div>
                 <ngx-gauge
                           [size]="gaugeSize"
@@ -52,7 +52,19 @@
 
       </div>
     </div>
-    <div class="card-footer">
+    <div class="card-footer" >
     </div>
   </div>
 </div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Just a modal with a bunch of words inside, nothing serious.
+  </div>
+</ng-template>

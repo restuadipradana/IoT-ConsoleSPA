@@ -31,6 +31,7 @@ import { NgxGauge } from 'ngx-gauge/gauge/gauge';
 import { MaintainDeviceComponent } from './maintain-device/maintain-device.component';
 import { MaintainLocationComponent } from './maintain-location/maintain-location.component';
 import { MaintainDeviceLocationComponent } from './maintain-device-location/maintain-device-location.component';
+import { WarningWindowComponent } from './warning-window/warning-window.component';
 
 
 @NgModule({
@@ -40,7 +41,9 @@ import { MaintainDeviceLocationComponent } from './maintain-device-location/main
     KanbanComponent,
     MaintainDeviceComponent,
     MaintainLocationComponent,
-    MaintainDeviceLocationComponent
+    MaintainDeviceLocationComponent,
+    WarningWindowComponent,
+
   ],
   imports: [
     CommonModule,

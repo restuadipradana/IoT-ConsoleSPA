@@ -10,6 +10,7 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule} from '@angular/common/http';
+import { DatePipe } from '@angular/common'
 
 import { IconModule, IconSetModule, IconSetService } from '@coreui/icons-angular';
 
@@ -83,6 +84,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     RegisterComponent
   ],
   providers: [
+    DatePipe,
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy

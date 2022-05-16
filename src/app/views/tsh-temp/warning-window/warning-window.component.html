@@ -1,0 +1,49 @@
+<div class="modal-content">
+  <div class="modal-body">
+
+    <div class="col-sm-12 col-md-12 d-flex align-items-stretch justify-content-center"  >
+      <div class="card border-primary text-center" style="color: #F0F0F0;">
+        <div class="card-body danger-bg" >
+          <div style="font-size: 50px; font-weight: bold;" >{{kanbanData?.locationName}}</div>
+          <ngx-gauge
+                    [size]="gaugeSize"
+                    [thick]="gaugeThick"
+                    [type]="gaugeType"
+                    [value]="kanbanData?.temperature"
+                    [label]="gaugeLabel"
+                    [append]="gaugeAppendText"
+                    [cap]="gaugeCap"
+                    [thresholds]="thresholdConfig"
+                    [animate]="true"
+                    [backgroundColor]="'#F0F0F0'">
+          </ngx-gauge>  &nbsp;
+          <ngx-gauge
+                    [size]="gaugeSize"
+                    [thick]="gaugeThick"
+                    [type]="gaugeType"
+                    [value]="kanbanData?.humidity"
+                    [label]="gaugeLabelH"
+                    [append]="gaugeAppendTextH"
+                    [cap]="gaugeCap"
+                    [thresholds]="thresholdConfigH"
+                    [animate]="true"
+                    [backgroundColor]="'#F0F0F0'">
+          </ngx-gauge>
+
+          <blockquote class="card-bodyquote">
+
+            <footer>Data At
+              <cite title="waktu">{{kanbanData?.lastUpdate | date: "HH:mm:ss" }}</cite>
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+    </div><!--/.col-->
+
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="setAckDate()">OK</button>
+  </div>
+</div><!-- /.modal-content -->

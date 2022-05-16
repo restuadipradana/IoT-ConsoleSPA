@@ -33,6 +33,14 @@ export class TemperatureService {
     return this.http.get<any>(this.baseUrl + 'kanban/get-kanban');
   }
 
+  setAck(loc_id: string, ack_date: string){
+    return this.http.get<any>(this.baseUrl + 'kanban/set-danger-acknowledge', {params : {loc_id:loc_id, ack_date:ack_date}})
+  }
+
+  getSingleData(id: string){
+    return this.http.get<any>(this.baseUrl + 'kanban/get-single-data', {params : {id:id}})
+  }
+
   //query data
   searchData(dateRange: DateRange, locationId: string) {
     const url = this.baseUrl + 'query/search';
